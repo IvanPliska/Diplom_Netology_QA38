@@ -1,6 +1,9 @@
 package data;
 
 import lombok.SneakyThrows;
+import models.CreditCardData;
+import models.PaymentCardData;
+import models.TableOrderEntity;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
@@ -27,11 +30,11 @@ public class SQLHelper {
         return DriverManager.getConnection(url, userName, password);
     }
 
-    public static DataHelper.CreditCardData getCreditCardData() {
+    public static CreditCardData getCreditCardData() {
         var cardDataSQL =  "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
         try (var conn = getConn()) {
             var result = runner.query(conn, cardDataSQL,
-                    new BeanHandler<>(DataHelper.CreditCardData.class));
+                    new BeanHandler<>(CreditCardData.class));
             return result;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -39,11 +42,11 @@ public class SQLHelper {
         return null;
     }
 
-    public static DataHelper.PaymentCardData getPaymentCardData() {
+    public static PaymentCardData getPaymentCardData() {
         var cardDataSQL =  "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1";
         try (var conn = getConn()) {
             var result = runner.query(conn, cardDataSQL,
-                    new BeanHandler<>(DataHelper.PaymentCardData.class));
+                    new BeanHandler<>(PaymentCardData.class));
             return result;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -51,11 +54,11 @@ public class SQLHelper {
         return null;
     }
 
-    public static DataHelper.TableOrderEntity getTableOrderEntity() {
+    public static TableOrderEntity getTableOrderEntity() {
         var orderEntityDataSQL =  "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1";
         try (var conn = getConn()) {
             var result = runner.query(conn, orderEntityDataSQL,
-                    new BeanHandler<>(DataHelper.TableOrderEntity.class));
+                    new BeanHandler<>(TableOrderEntity.class));
             return result;
         } catch (SQLException exception) {
             exception.printStackTrace();

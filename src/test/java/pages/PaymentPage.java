@@ -2,7 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import data.DataHelper;
+import models.CardInfo;
 
 import java.time.Duration;
 
@@ -39,7 +39,7 @@ public class PaymentPage {
         heading.shouldBe(visible);
     }
 
-    public void insertValidPaymentCardDataForBank(DataHelper.CardInfo cardInfo) {
+    public void insertValidPaymentCardDataForBank(CardInfo cardInfo) {
         cardNumber.setValue(cardInfo.getNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());

@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import models.CardInfo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -102,47 +103,5 @@ public class DataHelper {
         LocalDate date = LocalDate.now();
         String currentYear = date.format(DateTimeFormatter.ofPattern("yy"));
         return currentYear;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class CardInfo {
-        String number;
-        String month;
-        String year;
-        String holder;
-        String cvc;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class CreditCardData {
-        private String id;
-        private String bank_id;
-        private String created;
-        private String status;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PaymentCardData {
-        private String id;
-        private String amount;
-        private String created;
-        private String status;
-        private String transaction_id;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class TableOrderEntity {
-        private String id;
-        private String created;
-        private String credit_id;
-        private String payment_id;
     }
 }

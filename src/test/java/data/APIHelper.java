@@ -4,6 +4,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import models.CardInfo;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,7 +17,7 @@ public class APIHelper {
             .log(LogDetail.ALL)
             .build();
 
-    public static void createPayment(DataHelper.CardInfo cardInfo) {
+    public static void createPayment(CardInfo cardInfo) {
         given()
                 .spec(requestSpec)
                 .body(cardInfo)
@@ -25,7 +26,7 @@ public class APIHelper {
                 .then();
     }
 
-    public static void createCredit(DataHelper.CardInfo cardInfo) {
+    public static void createCredit(CardInfo cardInfo) {
         given()
                 .spec(requestSpec)
                 .body(cardInfo)

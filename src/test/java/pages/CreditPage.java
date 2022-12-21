@@ -2,7 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import data.DataHelper;
+import models.CardInfo;
 
 import java.time.Duration;
 
@@ -43,7 +43,7 @@ public class CreditPage {
         heading.shouldBe(visible);
     }
 
-    public void insertValidCreditCardDataForBank(DataHelper.CardInfo cardInfo) {
+    public void insertValidCreditCardDataForBank(CardInfo cardInfo) {
         cardNumber.setValue(cardInfo.getNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());
