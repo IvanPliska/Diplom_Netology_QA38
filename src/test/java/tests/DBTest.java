@@ -5,6 +5,7 @@ import data.APIHelper;
 import data.DataHelper;
 import data.SQLHelper;
 import io.qameta.allure.selenide.AllureSelenide;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -12,65 +13,65 @@ import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
-import static org.apache.http.HttpStatus.SC_CONFLICT;
-import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DBTest {
+    @SneakyThrows
     @BeforeAll
     static void setUpAll() {
+        TimeUnit.SECONDS.sleep(2); // для стабильности тестов добавлено ожидание
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
-
     @AfterAll
     static void tearDownAll() {
+        //SQLHelper.cleanDatabase();
         SelenideLogger.removeListener("allure");
     }
-    public void cleanUp() {SQLHelper.cleanDatabase();}
 
     @Test
-    @DisplayName("1. Should added payment data to database with APPROVED through API")
+    @DisplayName("Should added payment data to database with APPROVED through API")
     void shouldSuccessTransactionWithApprovedPaymentCardThroughAPI() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createPayment(cardInfo);
         var paymentCardData = SQLHelper.getPaymentCardData();
-        assertEquals(SC_CREATED, paymentCardData.getStatus());
+        assertEquals("APPROVED", paymentCardData.getStatus());
 
     }
 
     @Test
-    @DisplayName("2. Should added credit data to database with APPROVED through API")
+    @DisplayName("Should added credit data to database with APPROVED through API")
     void shouldSuccessTransactionWithApprovedCreditCardThroughAPI() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createCredit(cardInfo);
         var creditCardData = SQLHelper.getCreditCardData();
-        assertEquals(SC_CONFLICT, creditCardData.getStatus());
+        assertEquals("APPROVED", creditCardData.getStatus());
 
     }
 
     @Test
-    @DisplayName("3. Should added payment data to database with DECLINED through API")
+    @DisplayName("Should added payment data to database with DECLINED through API")
     void shouldSuccessTransactionWithDeclinedPaymentCardThroughAPI() {
         var cardInfo = DataHelper.generateDataWithDeclineCard();
         APIHelper.createPayment(cardInfo);
         var paymentCardData = SQLHelper.getPaymentCardData();
-        assertEquals(SC_CONFLICT, paymentCardData.getStatus());
+        assertEquals("DECLINED", paymentCardData.getStatus());
 
     }
 
     @Test
-    @DisplayName("4. Should added credit data to database with DECLINED through API")
+    @DisplayName("Should added credit data to database with DECLINED through API")
     void shouldSuccessTransactionWithDeclinedCreditCardThroughAPI() {
         var cardInfo = DataHelper.generateDataWithDeclineCard();
         APIHelper.createCredit(cardInfo);
         var creditCardData = SQLHelper.getCreditCardData();
-        assertEquals(SC_CONFLICT, creditCardData.getStatus());
+        assertEquals("DECLINED", creditCardData.getStatus());
 
     }
 
     @Test
-    @DisplayName("5. Should added correct created date in payment table with APPROVED card")
+    @DisplayName("Should added correct created date in payment table with APPROVED card")
     void shouldAddedCorrectDateInPaymentTableWithApprovedCard() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createPayment(cardInfo);
@@ -83,7 +84,7 @@ public class DBTest {
     }
 
     @Test
-    @DisplayName("6. Should added correct created date in credit table with APPROVED card")
+    @DisplayName("Should added correct created date in credit table with APPROVED card")
     void shouldAddedCorrectDateInCreditTableWithApprovedCard() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createCredit(cardInfo);
@@ -96,7 +97,7 @@ public class DBTest {
     }
 
     @Test
-    @DisplayName("7. Should added correct created date in payment table with DECLINED card")
+    @DisplayName("Should added correct created date in payment table with DECLINED card")
     void shouldAddedCorrectDateInPaymentTableWithDeclinedCard() {
         var cardInfo = DataHelper.generateDataWithDeclineCard();
         APIHelper.createPayment(cardInfo);
@@ -109,7 +110,7 @@ public class DBTest {
     }
 
     @Test
-    @DisplayName("8. Should added correct created date in credit table with DECLINED card")
+    @DisplayName("Should added correct created date in credit table with DECLINED card")
     void shouldAddedCorrectDateInCreditTableWithDeclinedCard() {
         var cardInfo = DataHelper.generateDataWithDeclineCard();
         APIHelper.createCredit(cardInfo);
@@ -122,7 +123,7 @@ public class DBTest {
     }
 
     @Test
-    @DisplayName("9. Should added correct payment data in order_entity table")
+    @DisplayName("Should added correct payment data in order_entity table")
     void shouldAddedCorrectPaymentDataInOrderTable() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createPayment(cardInfo);
@@ -132,7 +133,7 @@ public class DBTest {
     }
 
     @Test
-    @DisplayName("10. Should added correct credit data in order_entity table")
+    @DisplayName("Should added correct credit data in order_entity table")
     void shouldAddedCorrectCreditDataInOrderTable() {
         var cardInfo = DataHelper.generateDataWithApprovedCard();
         APIHelper.createCredit(cardInfo);
