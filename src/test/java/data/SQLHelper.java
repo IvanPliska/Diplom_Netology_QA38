@@ -18,8 +18,8 @@ public class SQLHelper {
 //    private static  String password = System.getProperty("db.password");
 
 
-    // private static String url= "jdbc:postgresql://localhost:5432/app";
-    private static String url= "jdbc:mysql://localhost:3307/app";
+      private static String url= "jdbc:postgresql://localhost:5432/app";
+   // private static String url= "jdbc:mysql://localhost:3307/app";
 
     // при тестировании MySQL url = "jdbc:mysql://localhost:3307/app"
     // при тестировании PostgreSQL url = "jdbc:postgresql://localhost:5432/app"

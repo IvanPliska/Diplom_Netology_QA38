@@ -26,7 +26,7 @@ public class DBTest {
     }
     @AfterAll
     static void tearDownAll() {
-        //SQLHelper.cleanDatabase();
+        SQLHelper.cleanDatabase();
         SelenideLogger.removeListener("allure");
     }
 
