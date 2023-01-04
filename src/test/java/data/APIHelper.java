@@ -23,7 +23,8 @@ public class APIHelper {
                 .body(cardInfo)
                 .when()
                 .post("/api/v1/pay")
-                .then();
+                .then()
+                .statusCode(200);
     }
 
     public static void createCredit(CardInfo cardInfo) {
@@ -32,6 +33,7 @@ public class APIHelper {
                 .body(cardInfo)
                 .when()
                 .post("/api/v1/credit")
-                .then();
+                .then()
+                .statusCode(200);
     }
 }

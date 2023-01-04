@@ -9,9 +9,10 @@ import pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.closeWindow;
 import static com.codeborne.selenide.Selenide.open;
+import static data.DataHelper.HOME_PAGE;
 
 public class CreditTest {
-    MainPage mainPage = open("http://localhost:8080/", MainPage.class);
+    MainPage mainPage = open(HOME_PAGE, MainPage.class);
 
     @BeforeAll
     static void setUpAll() {
@@ -33,7 +34,7 @@ public class CreditTest {
 
 
     @Test
-    @DisplayName("1. Should approved credit card with approved test card")
+    @DisplayName("Should approved credit card with approved test card")
     void shouldSuccessTransactionWithCreditCard() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -42,7 +43,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("2. Should reject credit card with reject test card")
+    @DisplayName("Should reject credit card with reject test card")
     void shouldNotSuccessTransactionWithCreditCard() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithDeclineCard();
@@ -51,7 +52,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("3. Should approved credit card with month by one date")
+    @DisplayName("Should approved credit card with month by one date")
     void shouldSuccessTransactionWithMonthWithoutZero() {
         var toCreditPage = mainPage.creditPage();
         var validYear = Integer.parseInt(DataHelper.getCurrentYear()) + 1;
@@ -61,7 +62,7 @@ public class CreditTest {
         toCreditPage.checkApprovedMessFromBank();
     }
     @Test
-    @DisplayName("4. Should approved credit card with approved test card and max date")
+    @DisplayName("Should approved credit card with approved test card and max date")
     void shouldSuccessTransactionWithMaxAllowedDate() {
         var toCreditPage = mainPage.creditPage();
         var currentMonth = DataHelper.getCurrentMonth();
@@ -73,7 +74,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("5. Should approved credit card with approved test card and max date minus 1 month")
+    @DisplayName("Should approved credit card with approved test card and max date minus 1 month")
     void shouldSuccessTransactionWithPreMaxAllowedDate() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithMaxDateMinusOneMonth();
@@ -82,7 +83,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("6. Should approved credit card with approved test card and min date")
+    @DisplayName("Should approved credit card with approved test card and min date")
     void shouldSuccessTransactionWithMinAllowedDate() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCardAndParametrizedMonthAndYear
@@ -92,7 +93,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("7. Should approved credit card with approved test card and min date next month)")
+    @DisplayName("Should approved credit card with approved test card and min date next month)")
     void shouldSuccessTransactionWithPreMinAllowedDate() {
         var toCreditPage = mainPage.creditPage();
         var nextMonth = Integer.parseInt(DataHelper.getCurrentMonth()) + 1;
@@ -103,7 +104,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("8. Should credit payment card with approved test card and max length card owner's name")
+    @DisplayName("Should credit payment card with approved test card and max length card owner's name")
     void shouldSuccessTransactionMaxLengthCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamLengthCardOwnerName(21);
@@ -112,7 +113,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("9. Should approved credit card with approved test card and min length card owner's name")
+    @DisplayName("Should approved credit card with approved test card and min length card owner's name")
     void shouldSuccessTransactionMinLengthCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamLengthCardOwnerName(3);
@@ -121,7 +122,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("10. Should decline credit card with random test card")
+    @DisplayName("Should decline credit card with random test card")
     void shouldDeclineWithRandomCreditCard() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithRandomCardNumber();
@@ -130,7 +131,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("11. Should to show red warning with empty card number")
+    @DisplayName("Should to show red warning with empty card number")
     void shouldShowWarningMessWithEmptyCardNumber() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -140,7 +141,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("12. Should to show red warning with empty month")
+    @DisplayName("Should to show red warning with empty month")
     void shouldShowWarningMessWithEmptyMonth() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -150,7 +151,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("13. Should to show red warning with empty year ")
+    @DisplayName("Should to show red warning with empty year ")
     void shouldShowWarningMessWithEmptyYear() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -160,7 +161,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("14. Should to show red warning with empty card owner")
+    @DisplayName("Should to show red warning with empty card owner")
     void shouldShowWarningMessWithEmptyCardOwner() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -170,7 +171,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("15. Should to show red warning with empty cvc")
+    @DisplayName("Should to show red warning with empty cvc")
     void shouldShowWarningMessWithEmptyCvc() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithApprovedCard();
@@ -180,7 +181,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("16. Should to show red warning with empty all field")
+    @DisplayName("Should to show red warning with empty all field")
     void shouldShowWarningMessWithEmptyAllField() {
         var toCreditPage = mainPage.creditPage();
         toCreditPage.clickProceedButton();
@@ -192,7 +193,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("17. Should not to show red warning with empty all field after filled field")
+    @DisplayName("Should not to show red warning with empty all field after filled field")
     void shouldNotShowWarningMessAfterEmptyAllField() {
         var toCreditPage = mainPage.creditPage();
         toCreditPage.clickProceedButton();
@@ -209,7 +210,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("18. Should to show red warning with expired card for year")
+    @DisplayName("Should to show red warning with expired card for year")
     void shouldShowWarningMessWithExpiredCardForYear() {
         var toCreditPage = mainPage.creditPage();
         var currentMonth = DataHelper.getCurrentMonth();
@@ -221,16 +222,16 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("19. Should to show red warning with expired card for month")
+    @DisplayName("Should to show red warning with expired card for month")
     void shouldShowWarningMessWithExpiredCardForMonth() {
         var toCreditPage = mainPage.creditPage();
-        var cardInfo = DataHelper.generateDataExpiredCardForOneMonth();
+        var cardInfo = DataHelper.generateDataExpiredCardForMinusOneMonth();
         toCreditPage.insertValidCreditCardDataForBank(cardInfo);
         toCreditPage.checkWarningUnderMonthField("Неверно указан срок действия карты");
     }
 
     @Test
-    @DisplayName("20. Should to show red warning with 00 month")
+    @DisplayName("Should to show red warning with 00 month")
     void shouldShowWarningMessWithZeroZeroMonth() {
         var toCreditPage = mainPage.creditPage();
         var validYear = Integer.parseInt(DataHelper.getCurrentYear()) + 1;
@@ -241,7 +242,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("21. Should to show red warning with invalid month data")
+    @DisplayName("Should to show red warning with invalid month data")
     void shouldShowWarningMessWithInvalidMonthData() {
         var toCreditPage = mainPage.creditPage();
         var currentYear = DataHelper.getCurrentYear();
@@ -252,7 +253,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("22. Should o show red warning with more max length card owner's name")
+    @DisplayName("Should o show red warning with more max length card owner's name")
     void shouldShowWarningMessWithMoreMaxLengthCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamLengthCardOwnerName(22);
@@ -261,7 +262,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("23. Should o show red warning with less min length card owner's name")
+    @DisplayName("Should o show red warning with less min length card owner's name")
     void shouldShowWarningMessWithLessMinLengthCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamLengthCardOwnerName(2);
@@ -269,7 +270,7 @@ public class CreditTest {
         toCreditPage.checkWarningUnderCardOwnerField("Имя не должно быть короче 3 символов");
     }
     @Test
-    @DisplayName("24. Should o show red warning with card owner's name is written in Cyrillic")
+    @DisplayName("Should o show red warning with card owner's name is written in Cyrillic")
     void shouldShowWarningMessWithCyrillicCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamCardOwnerName("НАРУТО УЗУМАКИ");
@@ -278,7 +279,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("25. Should o show red warning with card owner's name with numbers")
+    @DisplayName("Should o show red warning with card owner's name with numbers")
     void shouldShowWarningMessWithNumbersCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamCardOwnerName("НАРУТО999 УЗУМАКИ");
@@ -287,7 +288,7 @@ public class CreditTest {
     }
 
     @Test
-    @DisplayName("26. Should o show red warning with card owner's name with special symbols")
+    @DisplayName("Should o show red warning with card owner's name with special symbols")
     void shouldShowWarningMessWithSpecSymbolsCardOwnerName() {
         var toCreditPage = mainPage.creditPage();
         var cardInfo = DataHelper.generateDataWithParamCardOwnerName("!№;%%:?*()");

@@ -9,10 +9,11 @@ import pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.closeWindow;
 import static com.codeborne.selenide.Selenide.open;
+import static data.DataHelper.HOME_PAGE;
 
 public class PaymentTest {
 
-    MainPage mainPage = open("http://localhost:8080/", MainPage.class);
+    MainPage mainPage = open(HOME_PAGE, MainPage.class);
 
     @BeforeAll
     static void setUpAll() {
@@ -228,7 +229,7 @@ public class PaymentTest {
     @DisplayName("Should to show red warning with expired card for month")
     void shouldShowWarningMessWithExpiredCardForMonth() {
         var toPaymentPage = mainPage.paymentPage();
-        var cardInfo = DataHelper.generateDataExpiredCardForOneMonth();
+        var cardInfo = DataHelper.generateDataExpiredCardForMinusOneMonth();
         toPaymentPage.insertValidPaymentCardDataForBank(cardInfo);
         toPaymentPage.checkWarningUnderMonth("Неверно указан срок действия карты");
     }

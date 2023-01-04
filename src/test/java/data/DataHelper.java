@@ -1,9 +1,6 @@
 package data;
 
 import com.github.javafaker.Faker;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import models.CardInfo;
 
 import java.time.LocalDate;
@@ -11,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DataHelper {
+    public static final String HOME_PAGE = "http://localhost:8080/";
     private static Faker faker = new Faker(new Locale("en"));
 
     private static int validYear = Integer.parseInt(getCurrentYear()) + 1;
@@ -24,7 +22,6 @@ public class DataHelper {
     }
 
     public static CardInfo generateDataWithDeclineCard() {
-
         var randomName = faker.name().fullName();
         var randomCvc = faker.number().digits(3);
         return new CardInfo(numberDeclinedCard, getCurrentMonth(), String.valueOf(validYear), randomName, randomCvc);
@@ -55,19 +52,18 @@ public class DataHelper {
         return new CardInfo(numberApprovedCard, getCurrentMonth(), String.valueOf(validYear), name, randomCvc);
     }
 
-    public static CardInfo generateDataExpiredCardForOneMonth() {
+    public static CardInfo generateDataExpiredCardForMinusOneMonth() {
         var randomName = faker.name().fullName();
         var randomCvc = faker.number().digits(3);
         var currentMonth = Integer.parseInt(getCurrentMonth());
         var currentYear = Integer.parseInt(getCurrentYear());
         if (currentMonth == 1) {
             currentMonth = 12;
-            currentYear = currentYear - 1;
+            currentYear = currentYear - 1; // если месяц первый, то необходимо отнять год и оставить 12 месяц
         } else currentMonth = currentMonth - 1;
-
         String minusOneFromCurrentMonth = "";
         if (currentMonth < 10) {
-            minusOneFromCurrentMonth = "0" + currentMonth;
+            minusOneFromCurrentMonth = "0" + currentMonth; // для вставки в поле даты формата 01(январь) и т.п.
         }
         return new CardInfo(numberApprovedCard, minusOneFromCurrentMonth,
                 String.valueOf(currentYear), randomName, randomCvc);
@@ -79,15 +75,13 @@ public class DataHelper {
         var currentMonth = Integer.parseInt(getCurrentMonth());
         var preMaxMonth = 0;
         var maxYear = Integer.parseInt(getCurrentYear()) + 5;
-
         if (currentMonth == 1) {
             preMaxMonth = 12;
-            maxYear = maxYear - 1;
+            maxYear = maxYear - 1; // если месяц первый, то необходимо отнять год и оставить 12 месяц
         } else preMaxMonth = currentMonth - 1;
-
         String strPreMaxMonth = "";
         if (preMaxMonth < 10) {
-            strPreMaxMonth = "0" + preMaxMonth;
+            strPreMaxMonth = "0" + preMaxMonth; // для вставки в поле даты формата 01(январь), 02(февраль) и т.д.
         }
         return new CardInfo(numberApprovedCard, strPreMaxMonth,
                 String.valueOf(maxYear), randomName, randomCvc);
@@ -95,13 +89,13 @@ public class DataHelper {
 
     public static String getCurrentMonth() {
         LocalDate date = LocalDate.now();
-        String currentMonth = date.format(DateTimeFormatter.ofPattern("MM"));
+        var currentMonth = date.format(DateTimeFormatter.ofPattern("MM"));
         return currentMonth;
     }
 
     public static String getCurrentYear() {
         LocalDate date = LocalDate.now();
-        String currentYear = date.format(DateTimeFormatter.ofPattern("yy"));
+        var currentYear = date.format(DateTimeFormatter.ofPattern("yy"));
         return currentYear;
     }
 }
